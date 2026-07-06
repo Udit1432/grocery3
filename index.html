@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AetherGrocery - Smart Grocery with Offers</title>
+  <meta name="description" content="Shop groceries online with smart discounts, cashback deals, and live delivery tracking.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body class="dark-theme">
+  <!-- Global Backdrop Ambient Glows -->
+  <div class="glow-bg bg-purple"></div>
+  <div class="glow-bg bg-emerald"></div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="header-container">
+      <div class="logo" id="nav-logo">
+        <span class="logo-icon">🛒</span>
+        <span class="logo-text">Aether<span class="logo-accent">Grocery</span></span>
+      </div>
+
+      <nav class="nav-links">
+        <button class="nav-btn active" data-target="products-view">
+          <span class="btn-icon">🌾</span> Catalog
+        </button>
+        <button class="nav-btn" data-target="offers-view">
+          <span class="btn-icon">🏷️</span> Smart Offers
+        </button>
+        <button class="nav-btn" data-target="cart-view" id="nav-cart-btn">
+          <span class="btn-icon">🛒</span> Cart <span class="badge" id="cart-count">0</span>
+        </button>
+        <button class="nav-btn" data-target="tracking-view">
+          <span class="btn-icon">🚚</span> Live Track
+        </button>
+        <button class="nav-btn" data-target="admin-view" id="nav-admin-btn">
+          <span class="btn-icon">🛡️</span> Admin Panel
+        </button>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Notification Bell -->
+        <div class="notif-bell-container" id="notif-bell">
+          <span class="bell-icon">🔔</span>
+          <span class="badge" id="notif-count">0</span>
+          <!-- Dropdown Notifications Menu -->
+          <div class="notif-dropdown" id="notif-dropdown">
+            <div class="notif-header">
+              <h3>Recent Notifications</h3>
+              <button id="clear-notif-btn">Clear All</button>
+            </div>
+            <div class="notif-list" id="notif-list">
+              <div class="no-notif">No new notifications</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Profile Panel -->
+        <div class="user-panel" id="user-panel">
+          <button class="btn btn-secondary btn-sm" id="auth-trigger-btn">Login / Register</button>
+          <div class="user-info hidden" id="user-logged-info">
+            <span class="user-avatar">👤</span>
+            <div class="user-meta">
+              <span class="username" id="username-display">Guest</span>
+              <span class="cashback-pill" title="Cashback Balance">💰 $<span id="cashback-display">0.00</span></span>
+            </div>
+            <button class="logout-btn" id="logout-btn" title="Sign Out">✕</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main View Container -->
+  <main class="container">
+    
+    <!-- 1. PRODUCTS CATALOG VIEW -->
+    <section id="products-view" class="view-panel active">
+      <div class="catalog-header">
+        <div class="search-bar-container">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" placeholder="Search organic apples, whole milk, oats...">
+        </div>
+        <div class="filter-controls">
+          <div class="category-tabs" id="category-filter">
+            <button class="cat-btn active" data-category="all">All Items</button>
+            <button class="cat-btn" data-category="Fruits">Fruits</button>
+            <button class="cat-btn" data-category="Vegetables">Vegetables</button>
+            <button class="cat-btn" data-category="Dairy">Dairy</button>
+            <button class="cat-btn" data-category="Bakery">Bakery</button>
+            <button class="cat-btn" data-category="Pantry">Pantry</button>
+          </div>
+          <div class="sort-selector">
+            <label for="sort-select">Sort By: </label>
+            <select id="sort-select">
+              <option value="default">Default</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="name-asc">Name: A-Z</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compare Banner Alert -->
+      <div class="compare-info-banner hidden" id="compare-banner">
+        <span>Products added to Compare. Open drawer below to review.</span>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="products-grid">
+        <!-- Dynamic loading -->
+      </div>
+    </section>
+
+    <!-- 2. SMART OFFERS VIEW -->
+    <section id="offers-view" class="view-panel">
+      <div class="offers-hero">
+        <h1>Smart Coupon & Offers Center</h1>
+        <p>Save big on your daily groceries with our dynamic stackable deals and cashback rewards!</p>
+      </div>
+
+      <div class="offers-section">
+        <h2>Active Promo Codes</h2>
+        <div class="offers-grid" id="offers-grid">
+          <!-- Dynamic coupons will go here -->
+        </div>
+      </div>
+
+      <div class="offers-split">
+        <!-- Personalized Recommendations -->
+        <div class="recommendations-box panel-card">
+          <div class="box-header">
+            <h3>✨ Personalized Recommendations</h3>
+            <span class="subtitle">Based on popular organic selections</span>
+          </div>
+          <div class="rec-grid" id="recommendations-grid">
+            <!-- Dynamic recommendations -->
+          </div>
+        </div>
+
+        <!-- Bundle Deal Promos -->
+        <div class="bundle-deals-box panel-card">
+          <div class="box-header">
+            <h3>📦 Smart Bundle Deals</h3>
+            <span class="subtitle">Buy together and unlock instant rebates</span>
+          </div>
+          <div class="bundles-list" id="bundles-list">
+            <!-- Dynamic Bundle items -->
+            <div class="bundle-item">
+              <div class="bundle-badge">BOGO DAIRY</div>
+              <div class="bundle-info">
+                <h4>Dairy Delight Special</h4>
+                <p>Buy 2 Whole Milk or Greek Yogurt items, get the second one completely free!</p>
+              </div>
+            </div>
+            <div class="bundle-item">
+              <div class="bundle-badge">HEALTH DUO</div>
+              <div class="bundle-info">
+                <h4>Fresh Veggies & Fruits Boost</h4>
+                <p>Use code <strong>FRESH20</strong> to get 20% flat discount on Honeycrisp Apples, Organic Bananas, Baby Spinach, or Avocados.</p>
+              </div>
+            </div>
+            <div class="bundle-item">
+              <div class="bundle-badge">PREMIUM SAVER</div>
+              <div class="bundle-info">
+                <h4>Cashback Extravaganza</h4>
+                <p>Apply code <strong>CASH10</strong> on orders above $30 to credit 10% of the subtotal directly to your cashback wallet!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SHOPPING CART VIEW -->
+    <section id="cart-view" class="view-panel">
+      <div class="cart-layout">
+        <!-- Cart Items List -->
+        <div class="cart-items-section panel-card">
+          <h2>Your Cart Items</h2>
+          <div class="cart-table-wrapper">
+            <table class="cart-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="cart-table-body">
+                <!-- Dynamic Items -->
+                <tr>
+                  <td colspan="5" class="empty-message">Your cart is empty. Browse the catalog to add items!</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Cart Summary & Offers Application -->
+        <div class="cart-summary-section panel-card">
+          <h2>Order Summary</h2>
+          
+          <!-- Promo Code Form -->
+          <div class="coupon-box">
+            <label for="cart-coupon-input">Promo / Offer Code</label>
+            <div class="coupon-input-group">
+              <input type="text" id="cart-coupon-input" placeholder="e.g. FRESH20">
+              <button class="btn btn-primary" id="apply-coupon-btn">Apply</button>
+            </div>
+            <div class="coupon-status" id="coupon-status-msg"></div>
+          </div>
+
+          <!-- Cashback rewards slider/toggle -->
+          <div class="cashback-deduct-box" id="cashback-deduct-container">
+            <div class="toggle-container">
+              <input type="checkbox" id="use-cashback-check">
+              <label for="use-cashback-check">
+                <strong>Apply Cashback Balance</strong>
+                <span class="small-label">Use up to $<span id="cart-available-cashback">0.00</span></span>
+              </label>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <!-- Price breakdown -->
+          <div class="summary-breakdown">
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span>$<span id="summary-subtotal">0.00</span></span>
+            </div>
+            <div class="summary-row text-discount">
+              <span>Offer Discount</span>
+              <span>-$<span id="summary-discount">0.00</span></span>
+            </div>
+            <div class="summary-row text-discount" id="summary-cashback-used-row">
+              <span>Cashback Applied</span>
+              <span>-$<span id="summary-cashback-used">0.00</span></span>
+            </div>
+            <div class="summary-row">
+              <span>Delivery Fee <span class="delivery-info-icon" title="Free delivery for orders above $40! Otherwise $3.99">ℹ️</span></span>
+              <span>$<span id="summary-delivery">0.00</span></span>
+            </div>
+            <hr class="divider-dashed">
+            <div class="summary-row total-row">
+              <span>Final Total</span>
+              <span>$<span id="summary-total">0.00</span></span>
+            </div>
+          </div>
+
+          <!-- Future cashback earnings -->
+          <div class="cashback-reward-banner hidden" id="summary-cashback-earned-banner">
+            <span>🎉 You will earn <strong>$<span id="summary-cashback-earned">0.00</span></strong> cashback on checkout!</span>
+          </div>
+
+          <!-- Shipping Address -->
+          <div class="address-box">
+            <label for="shipping-address">Delivery Address</label>
+            <textarea id="shipping-address" rows="3" placeholder="Enter full delivery address here..."></textarea>
+          </div>
+
+          <!-- Checkout Trigger -->
+          <button class="btn btn-primary btn-block btn-lg" id="checkout-trigger-btn">Proceed to Checkout</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. TRACKING VIEW -->
+    <section id="tracking-view" class="view-panel">
+      <div class="tracking-layout">
+        <!-- Order List selector -->
+        <div class="tracking-list-box panel-card">
+          <h2>My Order History</h2>
+          <div class="order-list" id="user-orders-list">
+            <!-- Dynamic Orders -->
+            <div class="empty-message">No orders placed yet. Check out to track shipments.</div>
+          </div>
+        </div>
+
+        <!-- Tracking Visualizer -->
+        <div class="tracking-details panel-card hidden" id="tracking-visualizer">
+          <div class="order-header-details">
+            <div>
+              <h3>Order ID: <span id="track-order-id">#123456</span></h3>
+              <p class="track-date">Placed on: <span id="track-order-date">July 6, 2026</span></p>
+            </div>
+            <div class="status-badge-container">
+              <span class="status-badge" id="track-order-badge">Pending</span>
+            </div>
+          </div>
+
+          <!-- Progress Stepper -->
+          <div class="stepper">
+            <div class="step" id="step-pending">
+              <div class="step-circle">📝</div>
+              <div class="step-label">Ordered</div>
+            </div>
+            <div class="step-line" id="line-pending"></div>
+            <div class="step" id="step-dispatched">
+              <div class="step-circle">📦</div>
+              <div class="step-label">Dispatched</div>
+            </div>
+            <div class="step-line" id="line-dispatched"></div>
+            <div class="step" id="step-outfordelivery">
+              <div class="step-circle">🛵</div>
+              <div class="step-label">Out for Delivery</div>
+            </div>
+            <div class="step-line" id="line-outfordelivery"></div>
+            <div class="step" id="step-delivered">
+              <div class="step-circle">🏠</div>
+              <div class="step-label">Delivered</div>
+            </div>
+          </div>
+
+          <!-- Canvas Map Visualizer -->
+          <div class="map-container">
+            <div class="map-legend">
+              <span class="legend-item"><span class="legend-dot store-dot"></span> Store</span>
+              <span class="legend-item"><span class="legend-dot customer-dot"></span> House</span>
+              <span class="legend-item"><span class="legend-dot vehicle-dot"></span> Delivery Vehicle</span>
+            </div>
+            <canvas id="delivery-map" width="600" height="300"></canvas>
+            <div class="live-pulse-container" id="live-pulse">
+              <span class="live-dot"></span>
+              <span class="live-text">Live tracking simulation active (refreshes every 5s)</span>
+            </div>
+          </div>
+
+          <!-- Summary Items -->
+          <div class="track-summary">
+            <h4>Items Summary</h4>
+            <ul id="track-items-summary">
+              <!-- Dynamic line items -->
+            </ul>
+            <div class="track-financials">
+              <div>Subtotal: <strong>$<span id="track-subtotal">0.00</span></strong></div>
+              <div>Discount: <strong>-$<span id="track-discount">0.00</span></strong></div>
+              <div>Cashback Used: <strong>-$<span id="track-cashback-used">0.00</span></strong></div>
+              <div>Delivery: <strong>$<span id="track-delivery">0.00</span></strong></div>
+              <div class="track-total">Total Paid: <strong>$<span id="track-total">0.00</span></strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Placeholder when no order selected -->
+        <div class="tracking-placeholder panel-card" id="tracking-placeholder">
+          <div class="placeholder-icon">🚚</div>
+          <h3>Track Your Groceries In Real Time</h3>
+          <p>Select any order from your history list on the left to see the live location of your delivery rider.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. STORE ADMIN PANEL VIEW -->
+    <section id="admin-view" class="view-panel">
+      <!-- Admin Authentication Check -->
+      <div id="admin-auth-panel" class="admin-auth-card panel-card">
+        <h3>🛡️ Administrator Login Required</h3>
+        <p>Please enter the administrative credentials to access the central store metrics, inventories, and orders dispatcher.</p>
+        <div class="form-group">
+          <label for="admin-password-input">Security Password</label>
+          <input type="password" id="admin-password-input" placeholder="Enter admin password (hint: admin123)">
+        </div>
+        <button class="btn btn-primary" id="admin-login-btn">Authenticate</button>
+        <div class="error-msg" id="admin-auth-error"></div>
+      </div>
+
+      <!-- Admin Main Portal -->
+      <div id="admin-portal" class="hidden">
+        <div class="admin-header">
+          <h2>Store Control Center Dashboard</h2>
+          <button class="btn btn-secondary btn-sm" id="admin-logout-btn">Exit Admin Mode</button>
+        </div>
+
+        <!-- Metrics cards -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <span class="metric-icon">💵</span>
+            <div class="metric-info">
+              <h3>$<span id="metric-revenue">0.00</span></h3>
+              <p>Total Revenue</p>
+            </div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-icon">📦</span>
+            <div class="metric-info">
+              <h3><span id="metric-orders">0</span></h3>
+              <p>Total Orders</p>
+            </div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-icon">🏷️</span>
+            <div class="metric-info">
+              <h3><span id="metric-offers">0</span></h3>
+              <p>Active Offers</p>
+            </div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-icon">⚠️</span>
+            <div class="metric-info">
+              <h3><span id="metric-low-stock">0</span></h3>
+              <p>Low Stock Items</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Tab Switching -->
+        <div class="admin-tabs">
+          <button class="admin-tab-btn active" data-admin-target="admin-orders-tab">Orders Operations</button>
+          <button class="admin-tab-btn" data-admin-target="admin-products-tab">Inventory Catalog</button>
+          <button class="admin-tab-btn" data-admin-target="admin-offers-tab">Promo Offers Manager</button>
+        </div>
+
+        <!-- Admin: Orders Tab -->
+        <div id="admin-orders-tab" class="admin-tab-panel active">
+          <h3>Customer Orders Dispatch Center</h3>
+          <p class="section-desc">Track and update the status of customer orders to drive the live map simulator.</p>
+          <div class="table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer Address</th>
+                  <th>Items Count</th>
+                  <th>Total Payable</th>
+                  <th>Coupon Used</th>
+                  <th>Current Status</th>
+                  <th>Operations Dispatch</th>
+                </tr>
+              </thead>
+              <tbody id="admin-orders-table-body">
+                <!-- Dynamic -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Admin: Products Tab -->
+        <div id="admin-products-tab" class="admin-tab-panel">
+          <div class="admin-split-layout">
+            <!-- Left: Add/Edit Product Form -->
+            <div class="form-container-card panel-card">
+              <h3 id="product-form-title">Add New Product</h3>
+              <form id="admin-product-form">
+                <input type="hidden" id="edit-prod-id">
+                <div class="form-group">
+                  <label for="prod-name">Product Name *</label>
+                  <input type="text" id="prod-name" placeholder="e.g. Organic Strawberries" required>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="prod-category">Category *</label>
+                    <select id="prod-category" required>
+                      <option value="Fruits">Fruits</option>
+                      <option value="Vegetables">Vegetables</option>
+                      <option value="Dairy">Dairy</option>
+                      <option value="Bakery">Bakery</option>
+                      <option value="Pantry">Pantry</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="prod-price">Price ($) *</label>
+                    <input type="number" id="prod-price" step="0.01" placeholder="4.99" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="prod-stock">Stock Qty *</label>
+                    <input type="number" id="prod-stock" placeholder="50" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="prod-nutrition">Nutrition Tags</label>
+                    <input type="text" id="prod-nutrition" placeholder="e.g. Vitamin C, Fiber">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="prod-desc">Description</label>
+                  <textarea id="prod-desc" rows="2" placeholder="Brief details about the grocery item..."></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Link Offer Codes</label>
+                  <div class="checkbox-group" id="product-coupon-checkboxes">
+                    <!-- Dynamic -->
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary" id="save-prod-btn">Add Product</button>
+                  <button type="button" class="btn btn-secondary hidden" id="cancel-edit-prod-btn">Cancel</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Right: Products Catalog Listing -->
+            <div class="table-container-card">
+              <h3>Product Catalog</h3>
+              <div class="table-wrapper">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Category</th>
+                      <th>Price</th>
+                      <th>Stock</th>
+                      <th>Applied Offers</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-products-table-body">
+                    <!-- Dynamic -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin: Offers Tab -->
+        <div id="admin-offers-tab" class="admin-tab-panel">
+          <div class="admin-split-layout">
+            <!-- Left: Add Promo Offer Form -->
+            <div class="form-container-card panel-card">
+              <h3>Create Coupon Offer</h3>
+              <form id="admin-offer-form">
+                <div class="form-group">
+                  <label for="off-code">Promo Code *</label>
+                  <input type="text" id="off-code" placeholder="e.g. SPRING50" required>
+                </div>
+                <div class="form-group">
+                  <label for="off-desc">Offer Description *</label>
+                  <input type="text" id="off-desc" placeholder="20% off on Fresh produce" required>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="off-type">Offer Type *</label>
+                    <select id="off-type" required>
+                      <option value="percentage">Percentage Off (%)</option>
+                      <option value="flat">Flat Discount ($)</option>
+                      <option value="cashback">Cashback Earned (%)</option>
+                      <option value="bogo">Buy 1 Get 1 (BOGO)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="off-value">Value *</label>
+                    <input type="number" id="off-value" step="0.1" placeholder="e.g. 20" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="off-min">Min Order ($)</label>
+                    <input type="number" id="off-min" step="0.01" value="0.00">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Applicable Categories (Leave unchecked for All)</label>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="off-categories" value="Fruits"> Fruits</label>
+                    <label><input type="checkbox" name="off-categories" value="Vegetables"> Vegetables</label>
+                    <label><input type="checkbox" name="off-categories" value="Dairy"> Dairy</label>
+                    <label><input type="checkbox" name="off-categories" value="Bakery"> Bakery</label>
+                    <label><input type="checkbox" name="off-categories" value="Pantry"> Pantry</label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Offer</button>
+              </form>
+            </div>
+
+            <!-- Right: Offers Listing -->
+            <div class="table-container-card">
+              <h3>Active Coupons & Promo Deals</h3>
+              <div class="table-wrapper">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Code</th>
+                      <th>Description</th>
+                      <th>Type</th>
+                      <th>Value</th>
+                      <th>Min Purchase</th>
+                      <th>Categories</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-offers-table-body">
+                    <!-- Dynamic -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- COLLAPSIBLE COMPARISON DRAWER -->
+  <div class="compare-drawer" id="compare-drawer">
+    <div class="compare-drawer-header">
+      <div class="drawer-title">
+        <h3>⚖️ Product Price & Nutrient Compare</h3>
+        <span class="compare-count" id="compare-count-label">(0/3 items selected)</span>
+      </div>
+      <div class="drawer-actions">
+        <button class="btn btn-secondary btn-sm" id="clear-compare-btn">Clear All</button>
+        <button class="drawer-toggle-btn" id="compare-toggle-btn">▲ Expand</button>
+      </div>
+    </div>
+    <div class="compare-drawer-content" id="compare-drawer-content">
+      <div class="compare-table-wrapper">
+        <table class="compare-table">
+          <tbody id="compare-tbody">
+            <!-- Dynamic comparison spec rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTHENTICATION DIALOG MODAL -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="close-auth-modal">✕</button>
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tab-login-btn">Sign In</button>
+        <button class="auth-tab-btn" id="tab-register-btn">Create Account</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" class="auth-form">
+        <div class="form-group">
+          <label for="login-email">Email Address</label>
+          <input type="email" id="login-email" placeholder="jane@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        <div class="auth-hint">Demo Users:<br>Customer: <strong>jane@example.com</strong> / <strong>user123</strong><br>Admin: <strong>admin@grocery.com</strong> / <strong>admin123</strong></div>
+      </form>
+
+      <!-- Register Form -->
+      <form id="register-form" class="auth-form hidden">
+        <div class="form-group">
+          <label for="register-name">Full Name</label>
+          <input type="text" id="register-name" placeholder="John Doe" required>
+        </div>
+        <div class="form-group">
+          <label for="register-email">Email Address</label>
+          <input type="email" id="register-email" placeholder="john@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="register-password">Password</label>
+          <input type="password" id="register-password" placeholder="Min. 6 characters" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+      </form>
+
+      <div class="error-msg" id="auth-error-msg"></div>
+    </div>
+  </div>
+
+  <!-- PAYMENT CHECKOUT OVERLAY MODAL -->
+  <div class="modal-overlay" id="payment-modal">
+    <div class="modal-card payment-modal-card">
+      <button class="modal-close-btn" id="close-payment-modal">✕</button>
+      <h2>🔒 Secure Mock Payment Checkout</h2>
+      <p>Please simulate details below to process the grocery dispatch stream.</p>
+      
+      <!-- Interactive Credit Card Graphic -->
+      <div class="credit-card-preview" id="credit-card">
+        <div class="card-front">
+          <div class="card-chip"></div>
+          <div class="card-logo">VISA</div>
+          <div class="card-number-label" id="card-num-display">•••• •••• •••• ••••</div>
+          <div class="card-bottom">
+            <div class="card-holder-info">
+              <span class="label">CARDHOLDER</span>
+              <span class="name-display" id="card-name-display">YOUR NAME</span>
+            </div>
+            <div class="card-expiry-info">
+              <span class="label">EXPIRES</span>
+              <span class="expiry-display" id="card-expiry-display">MM/YY</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Form Details -->
+      <form id="payment-form">
+        <div class="form-group">
+          <label for="pay-cardholder">Cardholder Name</label>
+          <input type="text" id="pay-cardholder" placeholder="Jane Doe" required>
+        </div>
+        <div class="form-group">
+          <label for="pay-cardnumber">Card Number</label>
+          <input type="text" id="pay-cardnumber" maxlength="19" placeholder="4111 2222 3333 4444" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pay-expiry">Expiry Date</label>
+            <input type="text" id="pay-expiry" maxlength="5" placeholder="MM/YY" required>
+          </div>
+          <div class="form-group">
+            <label for="pay-cvv">CVV</label>
+            <input type="password" id="pay-cvv" maxlength="3" placeholder="123" required>
+          </div>
+        </div>
+
+        <div class="checkout-amount-bar">
+          <span>Amount Payable:</span>
+          <strong class="text-accent">$<span id="payment-modal-total">0.00</span></strong>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="pay-btn">Submit Payment & Order</button>
+      </form>
+      <div class="error-msg" id="payment-error-msg"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <p>&copy; 2026 AetherGrocery Systems Inc. Premium Web Grocery Solutions.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

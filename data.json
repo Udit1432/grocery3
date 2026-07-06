@@ -1,0 +1,192 @@
+{
+  "users": [
+    {
+      "id": "admin-1",
+      "name": "Store Admin",
+      "email": "admin@grocery.com",
+      "password": "admin123",
+      "role": "admin",
+      "cashbackBalance": 0
+    },
+    {
+      "id": "user-1",
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "password": "user123",
+      "role": "customer",
+      "cashbackBalance": 5
+    },
+    {
+      "id": "user-1783333159438",
+      "name": "govind",
+      "email": "gk2017430@gmail.com",
+      "password": "12@Suresh",
+      "role": "customer",
+      "cashbackBalance": 0
+    }
+  ],
+  "products": [
+    {
+      "id": "prod-1",
+      "name": "Organic Honeycrisp Apples",
+      "category": "Fruits",
+      "price": 4.99,
+      "stock": 50,
+      "description": "Crisp, sweet, and juicy organic apples sourced from local orchards.",
+      "nutrition": "High in Fiber, Vitamin C",
+      "offers": [
+        "FRESH20"
+      ]
+    },
+    {
+      "id": "prod-2",
+      "name": "Fresh Organic Spinach",
+      "category": "Vegetables",
+      "price": 2.49,
+      "stock": 40,
+      "description": "Pre-washed, ready-to-eat baby spinach leaves packed with iron.",
+      "nutrition": "Iron, Vitamin A, Vitamin K",
+      "offers": [
+        "FRESH20"
+      ]
+    },
+    {
+      "id": "prod-3",
+      "name": "Whole Milk 1 Gallon",
+      "category": "Dairy",
+      "price": 3.89,
+      "stock": 25,
+      "description": "Grade A pasteurized whole milk, rich in calcium and vitamin D.",
+      "nutrition": "Calcium, Protein, Vitamin D",
+      "offers": [
+        "BOGO"
+      ]
+    },
+    {
+      "id": "prod-4",
+      "name": "Sourdough Bread Loaf",
+      "category": "Bakery",
+      "price": 4.5,
+      "stock": 15,
+      "description": "Artisanal freshly baked sourdough bread with a crispy crust.",
+      "nutrition": "Carbohydrates, Iron",
+      "offers": []
+    },
+    {
+      "id": "prod-5",
+      "name": "Extra Virgin Olive Oil",
+      "category": "Pantry",
+      "price": 12.99,
+      "stock": 30,
+      "description": "Cold-pressed extra virgin olive oil, perfect for cooking and salads.",
+      "nutrition": "Healthy Fats, Antioxidants",
+      "offers": [
+        "CASH10",
+        "SUPER50"
+      ]
+    },
+    {
+      "id": "prod-6",
+      "name": "Organic Bananas",
+      "category": "Fruits",
+      "price": 1.99,
+      "stock": 100,
+      "description": "Sweet organic bananas, excellent source of quick energy.",
+      "nutrition": "Potassium, Vitamin B6",
+      "offers": [
+        "FRESH20"
+      ]
+    },
+    {
+      "id": "prod-7",
+      "name": "Greek Yogurt (Honey)",
+      "category": "Dairy",
+      "price": 1.79,
+      "stock": 35,
+      "description": "Thick and creamy probiotic Greek yogurt sweetened with honey.",
+      "nutrition": "Protein, Probiotics, Calcium",
+      "offers": [
+        "BOGO"
+      ]
+    },
+    {
+      "id": "prod-8",
+      "name": "Avocado (Pack of 4)",
+      "category": "Fruits",
+      "price": 5.49,
+      "stock": 20,
+      "description": "Ripe, creamy Haas avocados, perfect for fresh guacamole.",
+      "nutrition": "Healthy Monounsaturated Fats, Fiber",
+      "offers": [
+        "FRESH20"
+      ]
+    },
+    {
+      "id": "prod-9",
+      "name": "Gluten-Free Oats 1kg",
+      "category": "Pantry",
+      "price": 5.99,
+      "stock": 45,
+      "description": "100% whole grain gluten-free rolled oats for a healthy breakfast.",
+      "nutrition": "Beta-Glucan Fiber, Protein",
+      "offers": [
+        "CASH10"
+      ]
+    },
+    {
+      "id": "prod-10",
+      "name": "Chocolate Chip Cookies",
+      "category": "Bakery",
+      "price": 3.99,
+      "stock": 10,
+      "description": "Freshly baked cookies loaded with rich semi-sweet chocolate chips.",
+      "nutrition": "Carbohydrates, Sugar",
+      "offers": []
+    }
+  ],
+  "offers": [
+    {
+      "id": "off-1",
+      "code": "FRESH20",
+      "description": "20% off on all Fruits and Vegetables",
+      "type": "percentage",
+      "value": 20,
+      "minPurchase": 0,
+      "applicableCategories": [
+        "Fruits",
+        "Vegetables"
+      ]
+    },
+    {
+      "id": "off-2",
+      "code": "CASH10",
+      "description": "10% Cashback on orders above $30.00",
+      "type": "cashback",
+      "value": 10,
+      "minPurchase": 30,
+      "applicableCategories": []
+    },
+    {
+      "id": "off-3",
+      "code": "BOGO",
+      "description": "Buy 1 Get 1 Free on Dairy items",
+      "type": "bogo",
+      "value": 1,
+      "minPurchase": 0,
+      "applicableCategories": [
+        "Dairy"
+      ]
+    },
+    {
+      "id": "off-4",
+      "code": "SUPER50",
+      "description": "Flat $15.00 discount on orders above $80.00",
+      "type": "flat",
+      "value": 15,
+      "minPurchase": 80,
+      "applicableCategories": []
+    }
+  ],
+  "orders": [],
+  "notifications": []
+}
